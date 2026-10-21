@@ -3,7 +3,6 @@ FROM alpine:latest
 # Install Nginx & Xray
 RUN apk add --no-cache nginx xray
 
-# Copy Configuration files
 COPY x-ray.json /etc/xray/x-ray.json
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /entrypoint.sh
