@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USER111 }}/netmod-app:latest
+          tags: ${{ secrets.DOCKER_USER111 }}/con:latest
