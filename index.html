@@ -6,216 +6,177 @@
   <title>Con Fig ‑ Neural Core Panel</title>
   <style>
     :root {
-      --bg-main: #050a14;
-      --bg‑glow: #0b1b30;
-      --cyber‑primary: #00e5ff;
-      --cyber‑accent: #2979ff;
-      --cyber‑dim: #42a5f5;
-      --cyber‑glow: rgba(0, 229, 255, 0.35);
-      --border‑soft: rgba(0, 229, 255, 0.22);
-      --text‑light: #e8f4ff;
-      --text‑muted: #89a2bc;
+      --ocean-deep: #04101f;
+      --ocean-mid: #0b2b4d;
+      --ocean-blue: #2196f3;
+      --ocean-bright: #03a9f4;
+      --ocean-light: #81d4fa;
+      --ocean-glow: rgba(33, 150, 243, 0.45);
+      --border-ocean: rgba(33, 150, 243, 0.40);
+      --text-bright: #ffffff;
+      --text-readable: #e1f5fe;
+      --text-dim: #81d4fa;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'JetBrains Mono', 'Inter', 'Segoe UI', Roboto, monospace;
+      font-family: 'Inter', sans‑serif;
     }
-
     body {
-      background: radial-gradient(ellipse at 50% 0%, var(--bg‑glow), var(--bg-main));
-      color: var(--text‑light);
+      background: radial-gradient(ellipse at 50% 0%, #0b2b4d, #04101f);
+      color: var(--text-bright);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       padding: 2.5rem 1rem;
     }
-
     header {
       text-align: center;
       margin-bottom: 2rem;
     }
-
     .ai‑badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(0, 229, 255, 0.10);
-      border: 1px solid var(--border‑soft);
+      background: rgba(33, 150, 243, 0.20);
+      border: 1px solid var(--border-ocean);
       padding: 0.35rem 0.85rem;
-      border-radius: 6px;
+      border-radius: 50px;
       font-size: 0.8rem;
-      color: var(--cyber‑dim);
+      color: var(--ocean-light);
       margin-bottom: 0.75rem;
-      box-shadow: 0 0 14px var(--cyber‑glow);
+      box-shadow: 0 0 18px var(--ocean-glow);
     }
-
     .ai‑badge span {
-      width: 8px;
-      height: 8px;
-      background: var(--cyber‑primary);
+      width: 9px;
+      height: 9px;
+      background: var(--ocean-bright);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--cyber‑primary);
+      box-shadow: 0 0 12px var(--ocean-bright);
       animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
-      0% { transform: scale(0.92); opacity: 0.75; }
-      50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 16px var(--cyber‑primary); }
-      100% { transform: scale(0.92); opacity: 0.75; }
+      0% { transform: scale(0.90); opacity: 0.70; }
+      50% { transform: scale(1.30); opacity: 1; box-shadow: 0 0 20px var(--ocean-bright); }
+      100% { transform: scale(0.90); opacity: 0.70; }
     }
-
     header h1 {
       font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, var(--cyber‑dim), var(--cyber‑primary));
+      background: linear-gradient(135deg, #ffffff, #81d4fa, #2196f3);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
     }
-
     header p {
-      color: var(--text‑muted);
+      color: var(--text-dim);
       font-size: 0.95rem;
-      margin-top: 0.3rem;
     }
-
     .config‑control {
       width: 100%;
       max-width: 1100px;
-      background: rgba(0, 229, 255, 0.04);
-      border: 1px solid var(--border‑soft);
+      margin: 0 auto 2rem;
+      background: rgba(33, 150, 243, 0.12);
+      border: 1px solid var(--border-ocean);
       backdrop-filter: blur(14px);
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 1.25rem;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 8px 28px rgba(33, 150, 243, 0.20);
     }
-
     .config‑control label {
       font-size: 0.85rem;
-      color: var(--cyber‑dim);
+      color: var(--ocean-light);
       font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
     }
-
     .config‑control input {
       width: 100%;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(0, 229, 255, 0.40);
+      background: rgba(8, 32, 58, 0.85);
+      border: 1px solid rgba(33, 150, 243, 0.55);
       border-radius: 6px;
       padding: 0.75rem 1rem;
-      color: #fff;
+      color: #ffffff;
       font-size: 0.95rem;
       outline: none;
-      transition: border‑color 0.22s, box‑shadow 0.22s;
     }
-
     .config‑control input:focus {
-      border‑color: var(--cyber‑primary);
-      box-shadow: 0 0 12px var(--cyber‑glow);
+      border‑color: var(--ocean-bright);
+      box-shadow: 0 0 14px var(--ocean-glow);
     }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(auto‑fit, minmax(320px, 1fr));
       gap: 1.5rem;
       width: 100%;
       max-width: 1100px;
+      margin: 0 auto;
     }
-
     .card {
-      background: rgba(0, 229, 255, 0.04);
-      border: 1px solid var(--border‑soft);
+      background: rgba(33, 150, 243, 0.12);
+      border: 1px solid var(--border-ocean);
       backdrop-filter: blur(14px);
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.40);
-      transition: all 0.3s cubic‑bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 30px rgba(33, 150, 243, 0.22);
     }
-
-    .card:hover {
-      transform: translateY(-3px);
-      border‑color: var(--cyber‑primary);
-      box-shadow: 0 12px 36px rgba(0, 229, 255, 0.18);
-    }
-
     .card‑header {
       display: flex;
       justify-content: space‑between;
       align-items: center;
       margin-bottom: 1rem;
     }
-
     .badge {
-      background: rgba(0, 229, 255, 0.11);
-      color: var(--cyber‑dim);
+      background: rgba(3, 169, 244, 0.22);
+      color: #e1f5fe;
       padding: 0.25rem 0.65rem;
-      border-radius: 4px;
+      border-radius: 20px;
       font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.6px;
       text-transform: uppercase;
-      border: 1px solid rgba(0, 229, 255, 0.24);
+      border: 1px solid rgba(3, 169, 244, 0.40);
     }
-
     .card h2 {
       font-size: 1.15rem;
       color: #ffffff;
       font-weight: 700;
     }
-
     .code‑box {
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(0, 229, 255, 0.12);
-      border-radius: 6px;
-      padding: 0.85rem;
+      background: rgba(6, 30, 54, 0.85);
+      border: 1px solid rgba(3, 169, 244, 0.50);
+      border-radius: 8px;
+      padding: 1rem;
       font-family: monospace;
-      font-size: 0.78rem;
-      color: var(--cyber‑dim);
+      font-size: 0.82rem;
+      color: #81d4fa;
       word‑break: break‑all;
-      margin-bottom: 1rem;
-      max-height: 90px;
+      margin-bottom: 1.2rem;
+      max-height: 130px;
       overflow‑y: auto;
-      line-height: 1.4;
+      line-height: 1.5;
     }
-
-    .btn‑group {
-      display: flex;
-      gap: 0.5rem;
+    .btn‑wrap {
+      width: 100%;
     }
-
-    .btn {
-      flex: 1;
-      padding: 0.65rem;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      font-size: 0.85rem;
-    }
-
     .btn‑copy {
-      background: linear-gradient(135deg, #00e5ff, #2979ff);
+      width: 100%;
+      padding: 0.70rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(135deg, #0288d1, #03a9f4, #4fc3f7);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(0, 229, 255, 0.32);
+      box-shadow: 0 4px 16px rgba(3, 169, 244, 0.45);
+      cursor: pointer;
     }
-
     .btn‑copy:hover {
-      opacity: 0.92;
-      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.50);
+      opacity: 0.90;
+      box-shadow: 0 6px 22px rgba(3, 169, 244, 0.60);
     }
-
     footer {
-      margin-top: auto;
-      padding-top: 3rem;
-      color: var(--text‑muted);
+      margin-top: 3rem;
+      color: var(--text-dim);
       font-size: 0.85rem;
       text-align: center;
     }
@@ -232,7 +193,7 @@
 
   <div class="config‑control">
     <label for="dynamicHost">Dynamic Host / Server Domain:</label>
-    <input type="text" id="dynamicHost" value="" oninput="updateConfigs()" placeholder="Detecting clean host…" />
+    <input type="text" id="dynamicHost" value="gcp‑xray‑openresty‑227d4c‑ezdytizedq‑de.a.run.app" oninput="updateConfigs()" />
   </div>
 
   <main class="grid">
@@ -242,91 +203,84 @@
         <span class="badge">WebSocket</span>
       </div>
       <div class="code‑box" id="box‑trojan‑ws"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑trojan‑ws')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑trojan‑ws')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>Trojan</h2>
         <span class="badge">HTTP Upgrade</span>
       </div>
       <div class="code‑box" id="box‑trojan‑hu"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑trojan‑hu')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑trojan‑hu')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>VLESS</h2>
         <span class="badge">WebSocket</span>
       </div>
       <div class="code‑box" id="box‑vless‑ws"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑vless‑ws')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑vless‑ws')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>VLESS</h2>
         <span class="badge">HTTP Upgrade</span>
       </div>
       <div class="code‑box" id="box‑vless‑hu"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑vless‑hu')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑vless‑hu')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>VMess</h2>
         <span class="badge">WebSocket</span>
       </div>
       <div class="code‑box" id="box‑vmess‑ws"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑vmess‑ws')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑vmess‑ws')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>VMess</h2>
         <span class="badge">HTTP Upgrade</span>
       </div>
       <div class="code‑box" id="box‑vmess‑hu"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑vmess‑hu')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑vmess‑hu')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>Shadowsocks</h2>
         <span class="badge">WebSocket</span>
       </div>
       <div class="code‑box" id="box‑ss‑ws"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑ss‑ws')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑ss‑ws')">Copy Config</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card‑header">
         <h2>Shadowsocks</h2>
         <span class="badge">HTTP Upgrade</span>
       </div>
       <div class="code‑box" id="box‑ss‑hu"></div>
-      <div class="btn‑group">
-        <button class="btn btn‑copy" onclick="copyConfig('box‑ss‑hu')">Copy Config</button>
+      <div class="btn‑wrap">
+        <button class="btn‑copy" onclick="copyConfig('box‑ss‑hu')">Copy Config</button>
       </div>
     </div>
   </main>
 
   <footer>
-    &copy; Con Fig System &bull; Neural Robotics Core
+    &copy; Con Fig System &bull; Ocean Blue Interface
   </footer>
 
   <script>
@@ -348,36 +302,28 @@
       ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp3ZWJtYXN0ZXJnaGllMTg=@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS",
       ssHu: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-HU"
     };
-
     function cleanHost(raw) {
       return raw.replace(/^https?:\/\//, '').replace(/\/$/, '').trim();
     }
-
     function updateConfigs() {
       let host = cleanHost(document.getElementById('dynamicHost').value);
-      document.getElementById('box-trojan-ws').innerText = templates.trojanWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-trojan-hu').innerText = templates.trojanHu.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-vless-ws').innerText = templates.vlessWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-vless-hu').innerText = templates.vlessHu.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-vmess-ws').innerText = templates.vmessWs();
-      document.getElementById('box-vmess-hu').innerText = templates.vmessHu();
-      document.getElementById('box-ss-ws').innerText = templates.ssWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-ss-hu').innerText = templates.ssHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑trojan‑ws').innerText = templates.trojanWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑trojan‑hu').innerText = templates.trojanHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑vless‑ws').innerText = templates.vlessWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑vless‑hu').innerText = templates.vlessHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑vmess‑ws').innerText = templates.vmessWs();
+      document.getElementById('box‑vmess‑hu').innerText = templates.vmessHu();
+      document.getElementById('box‑ss‑ws').innerText = templates.ssWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box‑ss‑hu').innerText = templates.ssHu.replace(/HOST_PLACEHOLDER/g, host);
     }
-
     function copyConfig(elementId) {
       const text = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(text).then(() => {
         alert('Na‑copy na ang config, idol!');
       });
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const rawHost = window.location.hostname;
-      const finalHost = cleanHost(rawHost);
-      document.getElementById('dynamicHost').value = finalHost;
-      updateConfigs();
-    });
+    window.addEventListener('DOMContentLoaded', updateConfigs);
+    document.getElementById('dynamicHost').addEventListener('input', updateConfigs);
   </script>
 </body>
 </html>
