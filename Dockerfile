@@ -1,7 +1,7 @@
 FROM alpine:latest
 
-# Install Nginx, curl, unzip, and tzdata
-RUN apk add --no-cache nginx curl unzip tzdata
+# Install Nginx, curl, unzip, tzdata, and dos2unix
+RUN apk add --no-cache nginx curl unzip tzdata dos2unix
 
 # Download and Install Xray-core directly from GitHub releases
 RUN ARCH=$(uname -m) && \
@@ -24,7 +24,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY index.html /usr/share/nginx/html/index.html
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+# Fix line endings and set execution permissions
+RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
 
 EXPOSE 8080
 
