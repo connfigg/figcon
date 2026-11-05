@@ -136,8 +136,6 @@
       padding: 1.5rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
     }
 
     .card:hover {
@@ -176,7 +174,7 @@
       border: 1px solid rgba(255, 255, 255, 0.04);
       border-radius: 10px;
       padding: 0.85rem;
-      font-family: 'Fira Code', monospace;
+      font-family: monospace;
       font-size: 0.78rem;
       color: var(--kitty-light);
       word-break: break-all;
@@ -234,7 +232,7 @@
 
   <div class="config-control">
     <label for="dynamicHost">Dynamic Host / Server Domain:</label>
-    <input type="text" id="dynamicHost" value="gcp-xray-openresty-227d4c-ezdytizedq-de.a.run.app" oninput="updateConfigs()" />
+    <input type="text" id="dynamicHost" value="figcon-100175578535.asia-east1.run.app" oninput="updateConfigs()" />
   </div>
 
   <main class="grid">
@@ -336,7 +334,7 @@
   </main>
 
   <footer>
-    &copy; 2026 Con Fig System &bull; All Rights Reserved
+    &copy; Con Fig System &bull; All Rights Reserved
   </footer>
 
   <script>
@@ -375,11 +373,10 @@
     function copyConfig(elementId) {
       const text = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('Na-copyen ti configuration, idol!');
+        alert('Na-copy na ang config, idol!');
       });
     }
 
-    // Initialize on load
     window.onload = updateConfigs;
   </script>
 </body>
