@@ -18,24 +18,10 @@
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
     },
     {
-      "port": 10002,
-      "protocol": "trojan",
-      "settings": {
-        "clients": [{"password": "gcp-xray"}],
-        "allowInsecure": true
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/trojan-hu"},
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
       "port": 10003,
       "protocol": "vless",
       "settings": {
-        "clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"}],
+        "clients": [{"id": "a1b2c3d4‑5678‑40ef‑98ab‑cdef01234567"}],
         "decryption": "none"
       },
       "streamSettings": {
@@ -46,23 +32,9 @@
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
     },
     {
-      "port": 10004,
-      "protocol": "vless",
-      "settings": {
-        "clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"}],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/vless-hu"},
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
       "port": 10005,
       "protocol": "vmess",
-      "settings": {"clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567","alterId": 0}]},
+      "settings": {"clients": [{"id": "a1b2c3d4‑5678‑40ef‑98ab‑cdef01234567","alterId": 0}]},
       "streamSettings": {
         "network": "ws",
         "wsSettings": {"path": "/vmess-ws"},
@@ -71,33 +43,12 @@
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
     },
     {
-      "port": 10006,
-      "protocol": "vmess",
-      "settings": {"clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567","alterId": 0}]},
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/vmess-hu"},
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
       "port": 10007,
       "protocol": "shadowsocks",
-      "settings": {"method": "chacha20-ietf-poly1305","password": "webmasterghie18","network":"tcp,udp"},
+      "settings": {"method": "chacha20‑ietf‑poly1305","password": "webmasterghie18","network":"tcp,udp"},
       "streamSettings": {
         "network": "ws",
         "wsSettings": {"path": "/ss-ws"},
-        "security": "none"
-      }
-    },
-    {
-      "port": 10008,
-      "protocol": "shadowsocks",
-      "settings": {"method": "chacha20-ietf-poly1305","password": "gcp-xray","network":"tcp,udp"},
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/ss-hu"},
         "security": "none"
       }
     }
