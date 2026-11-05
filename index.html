@@ -377,11 +377,13 @@
       });
     }
 
-    // Awtomatikong makuha ang host/domain sa Cloud Run
+    // Gigamit ang hostname aron automatic ug sakto makuha ang bag-ong host sa Cloud Run
     window.onload = function() {
-      const currentHost = window.location.host;
-      if (currentHost) {
+      const currentHost = window.location.hostname;
+      if (currentHost && currentHost !== 'localhost') {
         document.getElementById('dynamicHost').value = currentHost;
+      } else {
+        document.getElementById('dynamicHost').value = "figcon-100175578535.us-central1.run.app";
       }
       updateConfigs();
     };
