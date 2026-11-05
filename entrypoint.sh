@@ -1,11 +1,15 @@
 #!/bin/sh
-
-# Adjust Nginx port dynamically based on Cloud Run PORT variable
 LISTEN_PORT="${PORT:-8080}"
 sed -i "s/listen 8080;/listen ${LISTEN_PORT};/g" /etc/nginx/nginx.conf
 
-# Start Xray in background
+echo "🚀 Nagsisimula ang Xray…"
 xray run -config /etc/xray/x-ray.json &
+XRAY_PID=$!
+sleep 3
+if ! kill -0 "$XRAY_PID" 2>/dev/null; then
+  echo "❌ Hindi nagsimula ang Xray"
+  exit 1
+fi
+echo "✅ Tumatakbo ang Xray"
 
-# Start Nginx in foreground
 exec nginx -g 'daemon off;'
