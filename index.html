@@ -6,12 +6,12 @@
   <title>Con Fig - AI Neural Panel</title>
   <style>
     :root {
-      --bg-color: #09060f;
-      --card-bg: rgba(255, 182, 193, 0.03);
-      --card-border: rgba(255, 105, 180, 0.18);
-      --kitty-pink: #ff69b4;
-      --kitty-light: #ffb6c1;
-      --ai-glow: rgba(255, 105, 180, 0.3);
+      --bg-color: #060913;
+      --card-bg: rgba(30, 144, 255, 0.03);
+      --card-border: rgba(30, 144, 255, 0.2);
+      --ai-blue: #1e90ff;
+      --ai-light: #87cefa;
+      --ai-glow: rgba(30, 144, 255, 0.35);
       --text-color: #f3f4f6;
       --text-dim: #9ca3af;
     }
@@ -24,7 +24,7 @@
     }
 
     body {
-      background: radial-gradient(circle at 50% 0%, #1d1026, var(--bg-color));
+      background: radial-gradient(circle at 50% 0%, #0d1b2a, var(--bg-color));
       color: var(--text-color);
       min-height: 100vh;
       display: flex;
@@ -42,12 +42,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(255, 105, 180, 0.1);
+      background: rgba(30, 144, 255, 0.1);
       border: 1px solid var(--card-border);
       padding: 0.35rem 0.85rem;
       border-radius: 50px;
       font-size: 0.8rem;
-      color: var(--kitty-light);
+      color: var(--ai-light);
       margin-bottom: 0.75rem;
       box-shadow: 0 0 15px var(--ai-glow);
     }
@@ -55,21 +55,21 @@
     .ai-badge span {
       width: 8px;
       height: 8px;
-      background: var(--kitty-pink);
+      background: var(--ai-blue);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--kitty-pink);
+      box-shadow: 0 0 8px var(--ai-blue);
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
       0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--kitty-pink); }
+      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--ai-blue); }
       100% { transform: scale(0.95); opacity: 0.8; }
     }
 
     header h1 {
       font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, var(--kitty-light), var(--kitty-pink));
+      background: linear-gradient(135deg, #ffffff, var(--ai-light), var(--ai-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 800;
@@ -99,14 +99,14 @@
 
     .config-control label {
       font-size: 0.85rem;
-      color: var(--kitty-light);
+      color: var(--ai-light);
       font-weight: 600;
     }
 
     .config-control input {
       width: 100%;
       background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 105, 180, 0.3);
+      border: 1px solid rgba(30, 144, 255, 0.3);
       border-radius: 8px;
       padding: 0.75rem 1rem;
       color: #fff;
@@ -116,7 +116,7 @@
     }
 
     .config-control input:focus {
-      border-color: var(--kitty-pink);
+      border-color: var(--ai-blue);
       box-shadow: 0 0 10px var(--ai-glow);
     }
 
@@ -140,8 +140,8 @@
 
     .card:hover {
       transform: translateY(-4px);
-      border-color: var(--kitty-pink);
-      box-shadow: 0 12px 40px rgba(255, 105, 180, 0.15);
+      border-color: var(--ai-blue);
+      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
     }
 
     .card-header {
@@ -152,15 +152,15 @@
     }
 
     .badge {
-      background: rgba(255, 105, 180, 0.12);
-      color: var(--kitty-pink);
+      background: rgba(30, 144, 255, 0.12);
+      color: var(--ai-light);
       padding: 0.25rem 0.65rem;
       border-radius: 20px;
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      border: 1px solid rgba(255, 105, 180, 0.2);
+      border: 1px solid rgba(30, 144, 255, 0.2);
     }
 
     .card h2 {
@@ -176,7 +176,7 @@
       padding: 0.85rem;
       font-family: monospace;
       font-size: 0.78rem;
-      color: var(--kitty-light);
+      color: var(--ai-light);
       word-break: break-all;
       margin-bottom: 1rem;
       max-height: 90px;
@@ -201,14 +201,14 @@
     }
 
     .btn-copy {
-      background: linear-gradient(135deg, #ff69b4, #db7093);
+      background: linear-gradient(135deg, #1e90ff, #00bfff);
       color: #fff;
-      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
     }
 
     .btn-copy:hover {
       opacity: 0.9;
-      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 6px 20px rgba(30, 144, 255, 0.5);
     }
 
     footer {
@@ -231,8 +231,8 @@
   </header>
 
   <div class="config-control">
-    <label for="dynamicHost">Dynamic Host / Server Domain:</label>
-    <input type="text" id="dynamicHost" value="figcon-100175578535.asia-east1.run.app" oninput="updateConfigs()" />
+    <label for="dynamicHost">Dynamic Host / Server Domain (Automatic):</label>
+    <input type="text" id="dynamicHost" value="" oninput="updateConfigs()" />
   </div>
 
   <main class="grid">
@@ -377,7 +377,14 @@
       });
     }
 
-    window.onload = updateConfigs;
+    // Awtomatikong makuha ang host/domain sa Cloud Run
+    window.onload = function() {
+      const currentHost = window.location.host;
+      if (currentHost) {
+        document.getElementById('dynamicHost').value = currentHost;
+      }
+      updateConfigs();
+    };
   </script>
 </body>
 </html>
