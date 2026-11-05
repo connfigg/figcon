@@ -25,7 +25,8 @@
         "allowInsecure": true
       },
       "streamSettings": {
-        "network": "tcp",
+        "network": "ws",
+        "wsSettings": {"path": "/trojan-hu"},
         "security": "none"
       },
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
@@ -52,7 +53,8 @@
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "tcp",
+        "network": "ws",
+        "wsSettings": {"path": "/vless-hu"},
         "security": "none"
       },
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
@@ -73,7 +75,8 @@
       "protocol": "vmess",
       "settings": {"clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567","alterId": 0}]},
       "streamSettings": {
-        "network": "tcp",
+        "network": "ws",
+        "wsSettings": {"path": "/vmess-hu"},
         "security": "none"
       },
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
@@ -93,7 +96,8 @@
       "protocol": "shadowsocks",
       "settings": {"method": "chacha20-ietf-poly1305","password": "gcp-xray","network":"tcp,udp"},
       "streamSettings": {
-        "network": "tcp",
+        "network": "ws",
+        "wsSettings": {"path": "/ss-hu"},
         "security": "none"
       }
     }
