@@ -15,6 +15,9 @@ RUN ARCH=$(uname -m) && \
     chmod +x /usr/local/bin/xray && \
     rm -rf /tmp/xray.zip /tmp/xray
 
+# Ensure Nginx HTML directory exists
+RUN mkdir -p /usr/share/nginx/html
+
 # Copy Configuration files & AI Panel HTML
 COPY x-ray.json /etc/xray/x-ray.json
 COPY nginx.conf /etc/nginx/nginx.conf
