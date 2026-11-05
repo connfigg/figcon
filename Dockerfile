@@ -1,34 +1,29 @@
-FROM alpine:latest
+FROM alpine:3.20
 
-# I‑install ang mga kailangan
-RUN apk add --no-cache nginx curl unzip tzdata dos2unix
+# Pag‑install ng mga kailangan
+RUN apk update && apk add --no-cache \
+    nginx \
+    wget \
+    ca‑certificates \
+    tzdata
 
-# I‑download ang Xray‑core ug geo data → diretso sa /etc/xray
-RUN ARCH=$(uname -m) && \
-    if [ "$ARCH" = "x86_64" ]; then XRAY_ARCH="64"; \
-    elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; \
-    else XRAY_ARCH="64"; fi && \
-    curl -L -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-${XRAY_ARCH}.zip && \
-    mkdir -p /usr/local/bin /etc/xray /var/log && \
-    unzip /tmp/xray.zip -d /tmp/xray && \
-    mv /tmp/xray/xray /usr/local/bin/xray && \
+# I‑download ang Xray
+RUN wget -O /tmp/xray.zip https://github.com/XTLS/Xray‑core/releases/download/v25.10.15/Xray‑core‑linux‑amd64.zip && \
+    unzip /tmp/xray.zip -d /usr/local/bin/ && \
     chmod +x /usr/local/bin/xray && \
-    curl -L -o /etc/xray/geoip.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geoip.dat && \
-    curl -L -o /etc/xray/geosite.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geosite.dat && \
-    rm -rf /tmp/xray.zip /tmp/xray
+    rm -f /tmp/xray.zip
 
-# HTML folder
-RUN mkdir -p /usr/share/nginx/html
+# Mga folder
+RUN mkdir -p /etc/xray /usr/share/nginx/html
 
-# Kopyaha ang mga file
-COPY x-ray.json /etc/xray/x-ray.json
+# Kopyahin ang mga file
+COPY x‑ray.json /etc/xray/x‑ray.json
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /usr/share/nginx/html/index.html
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /
 
-# Ayusa ang permissions ug i‑test ang Xray config
-RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
-RUN xray run -config /etc/xray/x-ray.json -test
+# I‑check ang config at bigyan ng permiso
+RUN chmod +x /entrypoint.sh && \
+    xray check -config /etc/xray/x‑ray.json
 
 EXPOSE 8080
 ENTRYPOINT ["/entrypoint.sh"]
