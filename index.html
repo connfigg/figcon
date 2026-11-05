@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Con Fig - AI Neural Panel</title>
+  <style>
+    :root {
+      --bg-color: #09060f;
+      --card-bg: rgba(255, 182, 193, 0.03);
+      --card-border: rgba(255, 105, 180, 0.18);
+      --kitty-pink: #ff69b4;
+      --kitty-light: #ffb6c1;
+      --ai-glow: rgba(255, 105, 180, 0.3);
+      --text-color: #f3f4f6;
+      --text-dim: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1d1026, var(--bg-color));
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 105, 180, 0.1);
+      border: 1px solid var(--card-border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      color: var(--kitty-light);
+      margin-bottom: 0.75rem;
+      box-shadow: 0 0 15px var(--ai-glow);
+    }
+
+    .ai-badge span {
+      width: 8px;
+      height: 8px;
+      background: var(--kitty-pink);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--kitty-pink);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--kitty-pink); }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #ffffff, var(--kitty-light), var(--kitty-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    .config-control {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .config-control label {
+      font-size: 0.85rem;
+      color: var(--kitty-light);
+      font-weight: 600;
+    }
+
+    .config-control input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 105, 180, 0.3);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .config-control input:focus {
+      border-color: var(--kitty-pink);
+      box-shadow: 0 0 10px var(--ai-glow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--kitty-pink);
+      box-shadow: 0 12px 40px rgba(255, 105, 180, 0.15);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      background: rgba(255, 105, 180, 0.12);
+      color: var(--kitty-pink);
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 105, 180, 0.2);
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .code-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--kitty-light);
+      word-break: break-all;
+      margin-bottom: 1rem;
+      max-height: 90px;
+      overflow-y: auto;
+      line-height: 1.4;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.65rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #ff69b4, #db7093);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+    }
+
+    .btn-copy:hover {
+      opacity: 0.9;
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.5);
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 3rem;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="ai-badge">
+      <span></span> Con Fig Neural Core Active
+    </div>
+    <h1>Con Fig Panel</h1>
+    <p>Dynamic Secure Tunnel Endpoints</p>
+  </header>
+
+  <div class="config-control">
+    <label for="dynamicHost">Dynamic Host / Server Domain:</label>
+    <input type="text" id="dynamicHost" value="gcp-xray-openresty-227d4c-ezdytizedq-de.a.run.app" oninput="updateConfigs()" />
+  </div>
+
+  <main class="grid">
+    <!-- TROJAN WS -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Trojan</h2>
+        <span class="badge">WebSocket</span>
+      </div>
+      <div class="code-box" id="box-trojan-ws"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-trojan-ws')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- TROJAN HU -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Trojan</h2>
+        <span class="badge">HTTP Upgrade</span>
+      </div>
+      <div class="code-box" id="box-trojan-hu"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-trojan-hu')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- VLESS WS -->
+    <div class="card">
+      <div class="card-header">
+        <h2>VLESS</h2>
+        <span class="badge">WebSocket</span>
+      </div>
+      <div class="code-box" id="box-vless-ws"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-vless-ws')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- VLESS HU -->
+    <div class="card">
+      <div class="card-header">
+        <h2>VLESS</h2>
+        <span class="badge">HTTP Upgrade</span>
+      </div>
+      <div class="code-box" id="box-vless-hu"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-vless-hu')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- VMESS WS -->
+    <div class="card">
+      <div class="card-header">
+        <h2>VMess</h2>
+        <span class="badge">WebSocket</span>
+      </div>
+      <div class="code-box" id="box-vmess-ws"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-vmess-ws')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- VMESS HU -->
+    <div class="card">
+      <div class="card-header">
+        <h2>VMess</h2>
+        <span class="badge">HTTP Upgrade</span>
+      </div>
+      <div class="code-box" id="box-vmess-hu"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-vmess-hu')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- SHADOWSOCKS WS -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Shadowsocks</h2>
+        <span class="badge">WebSocket</span>
+      </div>
+      <div class="code-box" id="box-ss-ws"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-ss-ws')">Copy Config</button>
+      </div>
+    </div>
+
+    <!-- SHADOWSOCKS HU -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Shadowsocks</h2>
+        <span class="badge">HTTP Upgrade</span>
+      </div>
+      <div class="code-box" id="box-ss-hu"></div>
+      <div class="btn-group">
+        <button class="btn btn-copy" onclick="copyConfig('box-ss-hu')">Copy Config</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Con Fig System &bull; All Rights Reserved
+  </footer>
+
+  <script>
+    const templates = {
+      trojanWs: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
+      trojanHu: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-HU",
+      vlessWs: "vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS",
+      vlessHu: "vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-HU",
+      vmessWs: () => {
+        const h = document.getElementById('dynamicHost').value;
+        const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
+        return "vmess://" + btoa(JSON.stringify(obj));
+      },
+      vmessHu: () => {
+        const h = document.getElementById('dynamicHost').value;
+        const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"httpupgrade","type":"none","host":h,"path":"/vmess-hu","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-HU","v":"2"};
+        return "vmess://" + btoa(JSON.stringify(obj));
+      },
+      ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp3ZWJtYXN0ZXJnaGllMTg=@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS",
+      ssHu: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-HU"
+    };
+
+    function updateConfigs() {
+      const host = document.getElementById('dynamicHost').value;
+      
+      document.getElementById('box-trojan-ws').innerText = templates.trojanWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-trojan-hu').innerText = templates.trojanHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-vless-ws').innerText = templates.vlessWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-vless-hu').innerText = templates.vlessHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-vmess-ws').innerText = templates.vmessWs();
+      document.getElementById('box-vmess-hu').innerText = templates.vmessHu();
+      document.getElementById('box-ss-ws').innerText = templates.ssWs.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-ss-hu').innerText = templates.ssHu.replace(/HOST_PLACEHOLDER/g, host);
+    }
+
+    function copyConfig(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Na-copyen ti configuration, idol!');
+      });
+    }
+
+    // Initialize on load
+    window.onload = updateConfigs;
+  </script>
+</body>
+</html>
