@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-# Install Nginx, curl, unzip, tzdata, at dos2unix
+# 1. I-install ang mga kailangan
 RUN apk add --no-cache nginx curl unzip tzdata dos2unix
 
-# Download at i-install ang Xray-core at Geodata files
+# 2. I-download ang Xray-core at Geodata files sa tamang direktoryo
 RUN ARCH=$(uname -m) && \
     if [ "$ARCH" = "x86_64" ]; then XRAY_ARCH="64"; \
     elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; \
@@ -13,10 +13,14 @@ RUN ARCH=$(uname -m) && \
     unzip /tmp/xray.zip -d /tmp/xray && \
     mv /tmp/xray/xray /usr/local/bin/xray && \
     chmod +x /usr/local/bin/xray && \
-    # I-download ang kinakailangang geodata files
-    curl -L -o /usr/local/bin/geoip.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geoip.dat && \
-    curl -L -o /usr/local/bin/geosite.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geosite.dat && \
+    # I-save ang geoip.dat at geosite.dat sa /usr/local/share/xray/ kung saan awtomatikong hinahanap ng Xray
+    curl -L -o /usr/local/share/xray/geoip.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geoip.dat && \
+    curl -L -o /usr/local/share/xray/geosite.dat https://github.com/XTLS/Xray-rules-dat/releases/latest/download/geosite.dat && \
     rm -rf /tmp/xray.zip /tmp/xray
+
+# 3. I-link din sa /usr/local/bin para sigurado
+RUN ln -s /usr/local/share/xray/geoip.dat /usr/local/bin/geoip.dat && \
+    ln -s /usr/local/share/xray/geosite.dat /usr/local/bin/geosite.dat
 
 # Nginx HTML directory
 RUN mkdir -p /usr/share/nginx/html
