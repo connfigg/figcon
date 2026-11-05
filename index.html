@@ -218,6 +218,31 @@
       font-size: 0.85rem;
       text-align: center;
     }
+
+    /* Custom Toast Notification Styles */
+    #toast-notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #1e90ff, #ff69b4);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      opacity: 0;
+      z-index: 1000;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -289,6 +314,9 @@
     &copy; Con Fig System &bull; All Rights Reserved
   </footer>
 
+  <!-- Custom Toast Notification Element -->
+  <div id="toast-notification">✅CONGRATS IDOL✅<br>🫰Na Copy Na Ang Config👌</div>
+
   <script>
     const templates = {
       trojanWs: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
@@ -312,8 +340,16 @@
     function copyConfig(elementId) {
       const text = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('Na‑copy na ang config, idol!');
+        showToast();
       });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast-notification');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
     }
 
     window.onload = function() {
