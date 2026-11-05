@@ -338,7 +338,6 @@
   </footer>
 
   <script>
-    // ✅ Tangtangon na ang HOST_PLACEHOLDER sa sulod sa templates, direkta na i‑pass ang safeHost
     function cleanHost(raw) {
       return raw.replace(/^https?:\/\//, '').replace(/\/+$/, '').trim();
     }
@@ -347,25 +346,21 @@
       const rawInput = document.getElementById('dynamicHost').value;
       const safeHost = cleanHost(rawInput);
 
-      // Trojan
       document.getElementById('box-trojan-ws').innerText =
         `trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=${safeHost}&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS`;
       document.getElementById('box-trojan-hu').innerText =
         `trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=httpupgrade&host=${safeHost}&headerType=none&path=%2Ftrojan-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-HU`;
 
-      // VLESS
       document.getElementById('box-vless-ws').innerText =
         `vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=${safeHost}&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS`;
       document.getElementById('box-vless-hu').innerText =
         `vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=httpupgrade&host=${safeHost}&headerType=none&path=%2Fvless-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-HU`;
 
-      // VMess
       const objWs = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":safeHost,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
       const objHu = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"httpupgrade","type":"none","host":safeHost,"path":"/vmess-hu","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-HU","v":"2"};
       document.getElementById('box-vmess-ws').innerText = "vmess://" + btoa(JSON.stringify(objWs));
       document.getElementById('box-vmess-hu').innerText = "vmess://" + btoa(JSON.stringify(objHu));
 
-      // Shadowsocks
       document.getElementById('box-ss-ws').innerText =
         `ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp3ZWJtYXN0ZXJnaGllMTg=@apps.google.com:443?type=ws&host=${safeHost}&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS`;
       document.getElementById('box-ss-hu').innerText =
@@ -375,7 +370,7 @@
     function copyConfig(elementId) {
       const text = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('Na-copy na ang config, idol!');
+        alert('Na‑copy na ang config, idol!');
       });
     }
 
@@ -385,10 +380,10 @@
       if (currentHost && currentHost !== 'localhost') {
         finalHost = cleanHost(currentHost);
       } else {
-        finalHost = "figcon-100175578535.us-central1.run.app";
+        finalHost = "figcon‑100175578535.us‑central1.run.app";
       }
       document.getElementById('dynamicHost').value = finalHost;
-      updateConfigs(); // ✅ Siguradong tawagin
+      updateConfigs();
     });
   </script>
 </body>
