@@ -326,7 +326,8 @@
         const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
         return "vmess://" + btoa(JSON.stringify(obj));
       },
-      ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp3ZWJtYXN0ZXJnaGllMTg=@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS"
+      // Binagong Shadowsocks URL structure gamit ang iyong bagong payload format
+      ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpneHAteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS"
     };
 
     function updateConfigs() {
