@@ -104,6 +104,15 @@
       border‑color: var(--ocean-bright);
       box-shadow: 0 0 14px var(--ocean-glow);
     }
+    .ping‑status {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(6, 30, 54, 0.85);
+      border: 1px solid rgba(3, 169, 244, 0.50);
+      border-radius: 6px;
+      font-family: monospace;
+      color: #81d4fa;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto‑fit, minmax(320px, 1fr));
@@ -193,7 +202,8 @@
 
   <div class="config‑control">
     <label for="dynamicHost">Dynamic Host / Server Domain:</label>
-    <input type="text" id="dynamicHost" value="gcp‑xray‑openresty‑227d4c‑ezdytizedq‑de.a.run.app" oninput="updateConfigs()" />
+    <input type="text" id="dynamicHost" value="gcp‑xray‑openresty‑227d4c‑ezdytizedq‑de.a.run.app" oninput="updateConfigs();checkPing();" />
+    <div class="ping‑status" id="pingDisplay">⏻ Status: Waiting…</div>
   </div>
 
   <main class="grid">
@@ -322,8 +332,24 @@
         alert('Na‑copy na ang config, idol!');
       });
     }
-    window.addEventListener('DOMContentLoaded', updateConfigs);
-    document.getElementById('dynamicHost').addEventListener('input', updateConfigs);
+    async function checkPing(){
+      const hostVal = cleanHost(document.getElementById('dynamicHost').value);
+      const disp = document.getElementById('pingDisplay');
+      disp.innerText = '⏻ Status: Checking…';
+      const start = performance.now();
+      try{
+        await fetch(`https://${hostVal}`,{mode:'no-cors',cache:'no-store'});
+        const ms = Math.round(performance.now() - start);
+        disp.innerText = `⟫ Host: ${hostVal} | Round‑trip: ${ms} ms (⚠️ Browser fetch‑time, dili tinuod nga ICMP ping)`;
+      }catch(e){
+        const msErr = Math.round(performance.now() - start);
+        disp.innerText = `⟘ Host: ${hostVal} | Time: ${msErr} ms | Note: CORS blocked, dili ma‑open direkta`;
+      }
+    }
+    window.addEventListener('DOMContentLoaded', ()=>{
+      updateConfigs();
+      checkPing();
+    });
   </script>
 </body>
 </html>
