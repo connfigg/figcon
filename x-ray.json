@@ -6,141 +6,64 @@
     {
       "port": 10001,
       "protocol": "trojan",
-      "settings": {
-        "clients": [{ "password": "gcp-xray" }]
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": { "path": "/trojan-ws" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "password": "gcp-xray" }] },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/trojan-ws" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10002,
       "protocol": "trojan",
-      "settings": {
-        "clients": [{ "password": "gcp-xray" }]
-      },
-      "streamSettings": {
-        "network": "domainsocket",
-        "dsSettings": { "path": "/trojan-hu" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "password": "gcp-xray" }] },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/trojan-hu" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10003,
       "protocol": "vless",
-      "settings": {
-        "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567" }],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": { "path": "/vless-ws" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567" }], "decryption": "none" },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vless-ws" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10004,
       "protocol": "vless",
-      "settings": {
-        "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567" }],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "domainsocket",
-        "dsSettings": { "path": "/vless-hu" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567" }], "decryption": "none" },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vless-hu" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10005,
       "protocol": "vmess",
-      "settings": {
-        "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567", "alterId": 0 }]
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": { "path": "/vmess-ws" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567", "alterId": 0 }] },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vmess-ws" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10006,
       "protocol": "vmess",
-      "settings": {
-        "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567", "alterId": 0 }]
-      },
-      "streamSettings": {
-        "network": "domainsocket",
-        "dsSettings": { "path": "/vmess-hu" }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["http", "tls"]
-      }
+      "settings": { "clients": [{ "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567", "alterId": 0 }] },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vmess-hu" } },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
     },
     {
       "port": 10007,
       "protocol": "shadowsocks",
-      "settings": {
-        "method": "chacha20-ietf-poly1305",
-        "password": "webmasterghie18",
-        "network": "tcp,udp"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": { "path": "/ss-ws" }
-      }
+      "settings": { "method": "chacha20-ietf-poly1305", "password": "webmasterghie18", "network": "tcp,udp" },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/ss-ws" } }
     },
     {
       "port": 10008,
       "protocol": "shadowsocks",
-      "settings": {
-        "method": "chacha20-ietf-poly1305",
-        "password": "gcp-xray",
-        "network": "tcp,udp"
-      },
-      "streamSettings": {
-        "network": "domainsocket",
-        "dsSettings": { "path": "/ss-hu" }
-      }
+      "settings": { "method": "chacha20-ietf-poly1305", "password": "gcp-xray", "network": "tcp,udp" },
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/ss-hu" } }
     }
   ],
   "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {}
-    },
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "blocked"
-    }
+    { "protocol": "freedom", "settings": {} },
+    { "protocol": "blackhole", "settings": {}, "tag": "blocked" }
   ],
   "routing": {
     "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "type": "field",
-        "ip": ["geoip:private"],
-        "outboundTag": "blocked"
-      }
-    ]
+    "rules": [{ "type": "field", "ip": ["geoip:private"], "outboundTag": "blocked" }]
   }
 }
