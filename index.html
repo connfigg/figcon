@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Con Fig - Neural Core Panel</title>
+  <title>Con Fig - Kitty Pink Panel</title>
   <style>
     :root {
-      --ocean-deep: #04101f;
-      --ocean-mid: #0b2b4d;
-      --ocean-blue: #2196f3;
-      --ocean-bright: #03a9f4;
-      --ocean-light: #81d4fa;
-      --ocean-glow: rgba(33, 150, 243, 0.45);
-      --border-ocean: rgba(33, 150, 243, 0.40);
+      --pink-deep: #1a0410;
+      --pink-mid: #3d0b2b;
+      --pink-main: #ff69b4;
+      --pink-bright: #ff1493;
+      --pink-light: #ffb6c1;
+      --pink-glow: rgba(255, 105, 180, 0.45);
+      --border-pink: rgba(255, 105, 180, 0.40);
       --text-bright: #ffffff;
-      --text-readable: #e1f5fe;
-      --text-dim: #81d4fa;
+      --text-readable: #ffe4e1;
+      --text-dim: #ffb6c1;
     }
     * {
       box-sizing: border-box;
@@ -24,7 +24,7 @@
       font-family: 'Inter', sans-serif;
     }
     body {
-      background: radial-gradient(ellipse at 50% 0%, #0b2b4d, #04101f);
+      background: radial-gradient(ellipse at 50% 0%, #3d0b2b, #1a0410);
       color: var(--text-bright);
       min-height: 100vh;
       padding: 2.5rem 1rem;
@@ -37,31 +37,31 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(33, 150, 243, 0.20);
-      border: 1px solid var(--border-ocean);
+      background: rgba(255, 105, 180, 0.20);
+      border: 1px solid var(--border-pink);
       padding: 0.35rem 0.85rem;
       border-radius: 50px;
       font-size: 0.8rem;
-      color: var(--ocean-light);
+      color: var(--pink-light);
       margin-bottom: 0.75rem;
-      box-shadow: 0 0 18px var(--ocean-glow);
+      box-shadow: 0 0 18px var(--pink-glow);
     }
     .ai-badge span {
       width: 9px;
       height: 9px;
-      background: var(--ocean-bright);
+      background: var(--pink-bright);
       border-radius: 50%;
-      box-shadow: 0 0 12px var(--ocean-bright);
+      box-shadow: 0 0 12px var(--pink-bright);
       animation: pulse 2s infinite;
     }
     @keyframes pulse {
       0% { transform: scale(0.90); opacity: 0.70; }
-      50% { transform: scale(1.30); opacity: 1; box-shadow: 0 0 20px var(--ocean-bright); }
+      50% { transform: scale(1.30); opacity: 1; box-shadow: 0 0 20px var(--pink-bright); }
       100% { transform: scale(0.90); opacity: 0.70; }
     }
     header h1 {
       font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, #81d4fa, #2196f3);
+      background: linear-gradient(135deg, #ffffff, #ffb6c1, #ff69b4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 800;
@@ -76,24 +76,24 @@
       width: 100%;
       max-width: 1100px;
       margin: 0 auto 2rem;
-      background: rgba(33, 150, 243, 0.12);
-      border: 1px solid var(--border-ocean);
+      background: rgba(255, 105, 180, 0.12);
+      border: 1px solid var(--border-pink);
       backdrop-filter: blur(14px);
       border-radius: 10px;
       padding: 1.25rem;
-      box-shadow: 0 8px 28px rgba(33, 150, 243, 0.20);
+      box-shadow: 0 8px 28px rgba(255, 105, 180, 0.20);
     }
     .config-control label {
       font-size: 0.85rem;
-      color: var(--ocean-light);
+      color: var(--pink-light);
       font-weight: 600;
       display: block;
       margin-bottom: 0.5rem;
     }
     .config-control input {
       width: 100%;
-      background: rgba(8, 32, 58, 0.85);
-      border: 1px solid rgba(33, 150, 243, 0.55);
+      background: rgba(40, 8, 28, 0.85);
+      border: 1px solid rgba(255, 105, 180, 0.55);
       border-radius: 6px;
       padding: 0.75rem 1rem;
       color: #ffffff;
@@ -101,17 +101,17 @@
       outline: none;
     }
     .config-control input:focus {
-      border-color: var(--ocean-bright);
-      box-shadow: 0 0 14px var(--ocean-glow);
+      border-color: var(--pink-bright);
+      box-shadow: 0 0 14px var(--pink-glow);
     }
     .ping-status {
       margin-top: 1rem;
       padding: 0.75rem 1rem;
-      background: rgba(6, 30, 54, 0.85);
-      border: 1px solid rgba(3, 169, 244, 0.50);
+      background: rgba(30, 6, 20, 0.85);
+      border: 1px solid rgba(255, 20, 147, 0.50);
       border-radius: 6px;
       font-family: monospace;
-      color: #81d4fa;
+      color: #ffb6c1;
     }
     .grid {
       display: grid;
@@ -122,12 +122,12 @@
       margin: 0 auto;
     }
     .card {
-      background: rgba(33, 150, 243, 0.12);
-      border: 1px solid var(--border-ocean);
+      background: rgba(255, 105, 180, 0.12);
+      border: 1px solid var(--border-pink);
       backdrop-filter: blur(14px);
       border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: 0 8px 30px rgba(33, 150, 243, 0.22);
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.22);
     }
     .card-header {
       display: flex;
@@ -136,14 +136,14 @@
       margin-bottom: 1rem;
     }
     .badge {
-      background: rgba(3, 169, 244, 0.22);
-      color: #e1f5fe;
+      background: rgba(255, 20, 147, 0.22);
+      color: #ffe4e1;
       padding: 0.25rem 0.65rem;
       border-radius: 20px;
       font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      border: 1px solid rgba(3, 169, 244, 0.40);
+      border: 1px solid rgba(255, 20, 147, 0.40);
     }
     .card h2 {
       font-size: 1.15rem;
@@ -151,13 +151,13 @@
       font-weight: 700;
     }
     .code-box {
-      background: rgba(6, 30, 54, 0.85);
-      border: 1px solid rgba(3, 169, 244, 0.50);
+      background: rgba(30, 6, 20, 0.85);
+      border: 1px solid rgba(255, 20, 147, 0.50);
       border-radius: 8px;
       padding: 1rem;
       font-family: monospace;
       font-size: 0.82rem;
-      color: #81d4fa;
+      color: #ffb6c1;
       word-break: break-all;
       margin-bottom: 1.2rem;
       max-height: 130px;
@@ -174,14 +174,14 @@
       border-radius: 8px;
       font-weight: 600;
       font-size: 0.85rem;
-      background: linear-gradient(135deg, #0288d1, #03a9f4, #4fc3f7);
+      background: linear-gradient(135deg, #c71585, #ff69b4, #ff1493);
       color: #ffffff;
-      box-shadow: 0 4px 16px rgba(3, 169, 244, 0.45);
+      box-shadow: 0 4px 16px rgba(255, 105, 180, 0.45);
       cursor: pointer;
     }
     .btn-copy:hover {
       opacity: 0.90;
-      box-shadow: 0 6px 22px rgba(3, 169, 244, 0.60);
+      box-shadow: 0 6px 22px rgba(255, 20, 147, 0.60);
     }
     footer {
       margin-top: 3rem;
@@ -194,7 +194,7 @@
 <body>
   <header>
     <div class="ai-badge">
-      <span></span> Con Fig Neural Core Active
+      <span></span> Con Fig Kitty Pink Core Active
     </div>
     <h1>Con Fig Panel</h1>
     <p>Dynamic Secure Tunnel Endpoints</p>
@@ -290,7 +290,7 @@
   </main>
 
   <footer>
-    &copy; Con Fig System &bull; Ocean Blue Interface
+    &copy; Con Fig System &bull; Kitty Pink Interface
   </footer>
 
   <script>
@@ -324,7 +324,7 @@
       document.getElementById('box-vmess-ws').innerText = templates.vmessWs();
       document.getElementById('box-vmess-hu').innerText = templates.vmessHu();
       document.getElementById('box-ss-ws').innerText = templates.ssWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-ss-hu').innerText = templates.ssHu.replace(/HOST_PLACEHOLDER/g, host);
+      document.getElementById('box-ss-hu').innerText, templates.ssHu.replace(/HOST_PLACEHOLDER/g, host);
     }
     function copyConfig(elementId) {
       const text = document.getElementById(elementId).innerText;
