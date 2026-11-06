@@ -17,12 +17,12 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USER111 }}
-          password: ${{ secrets.DOCKERTOKEN111 }}
+          username: ${{ secrets.DOCKER_USER1 }}
+          password: ${{ secrets.DOCKERTOKEN1 }}
 
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USER111 }}/figcon:latest
+          tags: ${{ secrets.DOCKER_USER1 }}/figcon:latest
