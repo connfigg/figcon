@@ -51,6 +51,34 @@
         "wsSettings": {"path": "/ss-ws"},
         "security": "none"
       }
+    },
+    {
+      "port": 10009,
+      "protocol": "trojan",
+      "settings": {
+        "clients": [{"password": "gcp-xray"}],
+        "allowInsecure": true
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {"path": "/trojan-xhttp"},
+        "security": "none"
+      },
+      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
+    },
+    {
+      "port": 10011,
+      "protocol": "vless",
+      "settings": {
+        "clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"}],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {"path": "/vless-xhttp"},
+        "security": "none"
+      },
+      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
     }
   ],
   "outbounds": [
