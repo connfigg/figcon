@@ -58,7 +58,7 @@ footer{margin-top:auto;padding-top:3rem;color:var(--text-dim);font-size:0.85rem;
 <header>
 <div class="ai-badge"><span></span> Con Fig Neural Core Active</div>
 <h1>Con Fig Panel</h1>
-<p>Dynamic Secure Tunnel Endpoints (WebSocket + XHTTP)</p>
+<p>Dynamic Secure Tunnel Endpoints (WebSocket + HTTPUpgrade)</p>
 </header>
 <div class="config-control">
 <label for="dynamicHost">Dynamic Host / Server Domain (Automatic):</label>
@@ -97,88 +97,136 @@ footer{margin-top:auto;padding-top:3rem;color:var(--text-dim);font-size:0.85rem;
 <div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-ss-ws')">Copy Config</button></div>
 </div>
 <div class="card">
-<div class="card-header"><h2>Trojan‑XHTTP</h2><span class="badge xhttp">X‑HTTP</span></div>
-<div class="code-box" id="box-trojan-xhttp"></div>
-<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-trojan-xhttp')">Copy Config</button></div>
+<div class="card-header"><h2>Trojan‑HU</h2><span class="badge xhttp">HTTPUpgrade</span></div>
+<div class="code-box" id="box-trojan-hu"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-trojan-hu')">Copy Config</button></div>
 </div>
 <div class="card">
-<div class="card-header"><h2>VLESS‑XHTTP</h2><span class="badge xhttp">X‑HTTP</span></div>
-<div class="code-box" id="box-vless-xhttp"></div>
-<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vless-xhttp')">Copy Config</button></div>
+<div class="card-header"><h2>VLESS‑HU</h2><span class="badge xhttp">HTTPUpgrade</span></div>
+<div class="code-box" id="box-vless-hu"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vless-hu')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>VMess‑HU</h2><span class="badge xhttp">HTTPUpgrade</span></div>
+<div class="code-box" id="box-vmess-hu"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vmess-hu')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>Shadowsocks‑HU</h2><span class="badge xhttp">HTTPUpgrade</span></div>
+<div class="code-box" id="box-ss-hu"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-ss-hu')">Copy Config</button></div>
 </div>
 </main>
 <footer>&copy; Con Fig System &bull; All Rights Reserved</footer>
 <div id="toast-notification">✅CONGRATS IDOL✅<br>🫰Na Copy Na Ang Config👌</div>
 <script>
-const templates={
-trojanWs:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
-vlessWs:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS",
-vmessWs:function(){
-  const h=document.getElementById('dynamicHost').value;
-  const obj={"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
-  return "vmess://"+btoa(JSON.stringify(obj));
-},
-ssWs:"ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-SHADOWSOCKS-WS",
-trojanXhttp:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Ftrojan-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-XHTTP",
-vlessXhttp:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Fvless-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-XHTTP"
+const templates = {
+  trojanWs: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
+  vlessWs: "vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS",
+  vmessWs: function() {
+    const h = document.getElementById('dynamicHost').value;
+    const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1350","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
+    return "vmess://" + btoa(JSON.stringify(obj));
+  },
+  ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-WS",
+  trojanHu: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-HU",
+  vlessHu: "vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-HU",
+  vmessHu: function() {
+    const h = document.getElementById('dynamicHost').value;
+    const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1350","net":"httpupgrade","type":"none","host":h,"path":"/vmess-hu","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-HU","v":"2"};
+    return "vmess://" + btoa(JSON.stringify(obj));
+  },
+  ssHu: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=httpupgrade&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-hu&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#SHADOWSOCKS-HU"
 };
-const boxIds=["box-trojan-ws","box-vless-ws","box-vmess-ws","box-ss-ws","box-trojan-xhttp","box-vless-xhttp"];
-function validateUri(uri){
-  if(!uri||uri.length<10)return false;
-  const allowed=["trojan://","vless://","vmess://","ss://"];
-  return allowed.some(p=>uri.startsWith(p));
+
+const boxIds = [
+  "box-trojan-ws",
+  "box-vless-ws",
+  "box-vmess-ws",
+  "box-ss-ws",
+  "box-trojan-hu",
+  "box-vless-hu",
+  "box-vmess-hu",
+  "box-ss-hu"
+];
+
+function validateUri(uri) {
+  if (!uri || uri.length < 10) return false;
+  const allowed = ["trojan://", "vless://", "vmess://", "ss://"];
+  return allowed.some(p => uri.startsWith(p));
 }
-function updateConfigs(){
-  const host=document.getElementById('dynamicHost').value;
-  const data={
-    "box-trojan-ws":templates.trojanWs.replace(/HOST_PLACEHOLDER/g,host),
-    "box-vless-ws":templates.vlessWs.replace(/HOST_PLACEHOLDER/g,host),
-    "box-vmess-ws":templates.vmessWs(),
-    "box-ss-ws":templates.ssWs.replace(/HOST_PLACEHOLDER/g,host),
-    "box-trojan-xhttp":templates.trojanXhttp.replace(/HOST_PLACEHOLDER/g,host),
-    "box-vless-xhttp":templates.vlessXhttp.replace(/HOST_PLACEHOLDER/g,host)
+
+function updateConfigs() {
+  const host = document.getElementById('dynamicHost').value;
+  const data = {
+    "box-trojan-ws": templates.trojanWs.replace(/HOST_PLACEHOLDER/g, host),
+    "box-vless-ws": templates.vlessWs.replace(/HOST_PLACEHOLDER/g, host),
+    "box-vmess-ws": templates.vmessWs(),
+    "box-ss-ws": templates.ssWs.replace(/HOST_PLACEHOLDER/g, host),
+    "box-trojan-hu": templates.trojanHu.replace(/HOST_PLACEHOLDER/g, host),
+    "box-vless-hu": templates.vlessHu.replace(/HOST_PLACEHOLDER/g, host),
+    "box-vmess-hu": templates.vmessHu(),
+    "box-ss-hu": templates.ssHu.replace(/HOST_PLACEHOLDER/g, host)
   };
-  for(const id of boxIds){
-    const el=document.getElementById(id);
-    el.innerText=data[id];
-    if(validateUri(data[id])) el.classList.remove("invalid");
+  for (const id of boxIds) {
+    const el = document.getElementById(id);
+    el.innerText = data[id];
+    if (validateUri(data[id])) el.classList.remove("invalid");
     else el.classList.add("invalid");
   }
 }
-function copyConfig(elId){
-  const txt=document.getElementById(elId).innerText;
-  if(!validateUri(txt)){alert("⚠️ URI looks invalid — check your host value");return;}
-  navigator.clipboard.writeText(txt).then(()=>showToast());
+
+function copyConfig(elId) {
+  const txt = document.getElementById(elId).innerText;
+  if (!validateUri(txt)) {
+    alert("⚠️ URI looks invalid — check your host value");
+    return;
+  }
+  navigator.clipboard.writeText(txt).then(() => showToast());
 }
-function showToast(){
-  const t=document.getElementById('toast-notification');
+
+function showToast() {
+  const t = document.getElementById('toast-notification');
   t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2500);
+  setTimeout(() => t.classList.remove("show"), 2500);
 }
-function exportAllConfigs(){
-  let out="===== GCP Tunnel Configs =====\n";
-  for(const id of boxIds){out+="\n"+document.getElementById(id).innerText+"\n";}
-  const blob=new Blob([out],{type:"text/plain"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download="gcp‑tunnel‑all‑configs.txt";
-  document.body.appendChild(a);a.click();
-  document.body.removeChild(a);URL.revokeObjectURL(url);showToast();
+
+function exportAllConfigs() {
+  let out = "===== GCP Tunnel Configs =====\n";
+  for (const id of boxIds) {
+    out += "\n" + document.getElementById(id).innerText + "\n";
+  }
+  const blob = new Blob([out], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "gcp‑tunnel‑all‑configs.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast();
 }
-async function checkServerPing(){
-  const st=document.getElementById("ping-status");
-  st.textContent="Checking…";st.className="status-text wait";
-  try{
-    await fetch("/",{method:"HEAD",mode:"no-cors"});
-    st.textContent="Reachable (nginx hint only)";st.className="status-text ok";
-  }catch(err){
-    st.textContent="Not reachable / CORS blocked";st.className="status-text fail";
+
+async function checkServerPing() {
+  const st = document.getElementById("ping-status");
+  st.textContent = "Checking…";
+  st.className = "status-text wait";
+  try {
+    await fetch("/", { method: "HEAD", mode: "no-cors" });
+    st.textContent = "Reachable (nginx hint only)";
+    st.className = "status-text ok";
+  } catch (err) {
+    st.textContent = "Not reachable / CORS blocked";
+    st.className = "status-text fail";
   }
 }
-window.onload=function(){
-  const h=window.location.host;
-  if(h){document.getElementById('dynamicHost').value=h;}
+
+window.onload = function() {
+  const h = window.location.host;
+  if (h) {
+    document.getElementById('dynamicHost').value = h;
+  }
   updateConfigs();
 };
 </script>
