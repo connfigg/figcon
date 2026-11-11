@@ -63,7 +63,7 @@
         "network": "xhttp",
         "xhttpSettings": {
           "path": "/trojan-xhttp",
-          "mode": "auto"
+          "mode": "packetup"
         },
         "security": "none"
       },
@@ -80,7 +80,7 @@
         "network": "xhttp",
         "xhttpSettings": {
           "path": "/vless-xhttp",
-          "mode": "auto"
+          "mode": "packetup"
         },
         "security": "none"
       },
