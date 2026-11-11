@@ -1,97 +1,247 @@
 {
   "log": {
-    "loglevel": "info"
+    "loglevel": "warning",
+    "access": "",
+    "error": ""
   },
   "inbounds": [
     {
       "port": 10001,
+      "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {
-        "clients": [{"password": "gcp-xray"}],
-        "allowInsecure": true
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/trojan-ws"},
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
-      "port": 10003,
-      "protocol": "vless",
-      "settings": {
-        "clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"}],
+        "clients": [
+          {
+            "password": "gcp-xray",
+            "email": ""
+          }
+        ],
         "decryption": "none"
       },
       "streamSettings": {
         "network": "ws",
-        "wsSettings": {"path": "/vless-ws"},
-        "security": "none"
+        "security": "none",
+        "wsSettings": {
+          "path": "/trojan-ws",
+          "headers": {
+            "Host": ""
+          }
+        }
       },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
-      "port": 10005,
-      "protocol": "vmess",
-      "settings": {"clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567","alterId": 0}]},
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/vmess-ws"},
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
-      "port": 10007,
-      "protocol": "shadowsocks",
-      "settings": {"method": "chacha20-ietf-poly1305","password": "gcp-xray","network":"tcp"},
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {"path": "/ss-ws"},
-        "security": "none"
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
       }
     },
     {
-      "port": 10009,
+      "port": 11001,
+      "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {
-        "clients": [{"password": "gcp-xray"}],
-        "allowInsecure": true
-      },
-      "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "path": "/trojan-xhttp",
-          "mode": "auto"
-        },
-        "security": "none"
-      },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
-    },
-    {
-      "port": 10011,
-      "protocol": "vless",
-      "settings": {
-        "clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"}],
+        "clients": [
+          {
+            "password": "gcp-xray",
+            "email": ""
+          }
+        ],
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "path": "/vless-xhttp",
-          "mode": "auto"
-        },
-        "security": "none"
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/trojan-hu",
+          "host": ""
+        }
       },
-      "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 10002,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
+            "flow": "",
+            "email": ""
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vless-ws",
+          "headers": {
+            "Host": ""
+          }
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 11002,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
+            "flow": "",
+            "email": ""
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/vless-hu",
+          "host": ""
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 10003,
+      "listen": "0.0.0.0",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
+            "alterId": 0,
+            "security": "auto"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vmess-ws",
+          "headers": {
+            "Host": ""
+          }
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 11003,
+      "listen": "0.0.0.0",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
+            "alterId": 0,
+            "security": "auto"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/vmess-hu",
+          "host": ""
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 10004,
+      "listen": "0.0.0.0",
+      "protocol": "shadowsocks",
+      "settings": {
+        "method": "chacha20-ietf-poly1305",
+        "password": "gcp-xray",
+        "network": "tcp,udp"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/ss-ws",
+          "headers": {
+            "Host": ""
+          }
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
+    },
+    {
+      "port": 11004,
+      "listen": "0.0.0.0",
+      "protocol": "shadowsocks",
+      "settings": {
+        "method": "chacha20-ietf-poly1305",
+        "password": "gcp-xray",
+        "network": "tcp,udp"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/ss-hu",
+          "host": ""
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      }
     }
   ],
   "outbounds": [
-    {"protocol": "freedom", "settings": {}}
+    {
+      "protocol": "freedom",
+      "settings": {
+        "response": null
+      },
+      "tag": "direct"
+    }
   ],
   "routing": {
-    "domainStrategy": "AsIs",
-    "rules": []
+    "domainStrategy": "IPIfNonMatch",
+    "domainMatcher": "hybrid",
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "direct"
+      }
+    ]
   }
 }
