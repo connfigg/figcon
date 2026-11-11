@@ -119,8 +119,8 @@ vmessWs:function(){
   return "vmess://"+btoa(JSON.stringify(obj));
 },
 ssWs:"ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-SHADOWSOCKS-WS",
-trojanXhttp:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=xhttp&host=HOST_PLACEHOLDER&headerType=packetup&path=%2Ftrojan-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-XHTTP",
-vlessXhttp:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=xhttp&host=HOST_PLACEHOLDER&headerType=packetup&path=%2Fvless-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-XHTTP"
+trojanXhttp:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Ftrojan-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-XHTTP",
+vlessXhttp:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Fvless-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-XHTTP"
 };
 const boxIds=["box-trojan-ws","box-vless-ws","box-vmess-ws","box-ss-ws","box-trojan-xhttp","box-vless-xhttp"];
 function validateUri(uri){
