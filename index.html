@@ -1,365 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Con Fig Neural Panel</title>
-  <style>
-    :root {
-      --bg-color: #060913;
-      --card-bg: rgba(30, 144, 255, 0.03);
-      --card-border: rgba(30, 144, 255, 0.2);
-      --ai-blue: #1e90ff;
-      --ai-light: #87cefa;
-      --ai-glow: rgba(30, 144, 255, 0.35);
-      --text-color: #f3f4f6;
-      --text-dim: #9ca3af;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background: radial-gradient(circle at 50% 0%, #0d1b2a, var(--bg-color));
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2.5rem 1rem;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(30, 144, 255, 0.1);
-      border: 1px solid var(--card-border);
-      padding: 0.35rem 0.85rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      color: var(--ai-light);
-      margin-bottom: 0.75rem;
-      box-shadow: 0 0 15px var(--ai-glow);
-    }
-
-    .ai-badge span {
-      width: 8px;
-      height: 8px;
-      background: var(--ai-blue);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--ai-blue);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--ai-blue); }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #ffffff, var(--ai-light), var(--ai-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    header p {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      margin-top: 0.25rem;
-    }
-
-    .config-control {
-      width: 100%;
-      max-width: 1100px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 14px;
-      padding: 1.25rem;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .config-control label {
-      font-size: 0.85rem;
-      color: var(--ai-light);
-      font-weight: 600;
-    }
-
-    .config-control input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(30, 144, 255, 0.3);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .config-control input:focus {
-      border-color: var(--ai-blue);
-      box-shadow: 0 0 10px var(--ai-glow);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 1100px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--ai-blue);
-      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .badge {
-      background: rgba(30, 144, 255, 0.12);
-      color: var(--ai-light);
-      padding: 0.25rem 0.65rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      border: 1px solid rgba(30, 144, 255, 0.2);
-    }
-
-    .card h2 {
-      font-size: 1.15rem;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .code-box {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 10px;
-      padding: 0.85rem;
-      font-family: monospace;
-      font-size: 0.78rem;
-      color: var(--ai-light);
-      word-break: break-all;
-      margin-bottom: 1rem;
-      max-height: 90px;
-      overflow-y: auto;
-      line-height: 1.4;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 0.65rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 0.85rem;
-    }
-
-    .btn-copy {
-      background: linear-gradient(135deg, #1e90ff, #00bfff);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
-    }
-
-    .btn-copy:hover {
-      opacity: 0.9;
-      box-shadow: 0 6px 20px rgba(30, 144, 255, 0.5);
-    }
-
-    footer {
-      margin-top: auto;
-      padding-top: 3rem;
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      text-align: center;
-    }
-
-    /* Custom Toast Notification Styles */
-    #toast-notification {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: linear-gradient(135deg, #1e90ff, #ff69b4);
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-      opacity: 0;
-      z-index: 1000;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    #toast-notification.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Con Fig Neural Panel</title>
+<style>
+:root {
+  --bg-color: #060913;
+  --card-bg: rgba(30, 144, 255, 0.03);
+  --card-border: rgba(30, 144, 255, 0.2);
+  --ai-blue: #1e90ff;
+  --ai-light: #87cefa;
+  --ai-glow: rgba(30, 144, 255, 0.35);
+  --text-color: #f3f4f6;
+  --text-dim: #9ca3af;
+  --ok-green: #39ff14;
+  --fail-red: #ff4757;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+body{background:radial-gradient(circle at 50% 0%,#0d1b2a,var(--bg-color));color:var(--text-color);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2.5rem 1rem;}
+header{text-align:center;margin-bottom:2rem;}
+.ai-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(30,144,255,0.1);border:1px solid var(--card-border);padding:0.35rem 0.85rem;border-radius:50px;font-size:0.8rem;color:var(--ai-light);margin-bottom:0.75rem;box-shadow:0 0 15px var(--ai-glow);}
+.ai-badge span{width:8px;height:8px;background:var(--ai-blue);border-radius:50%;box-shadow:0 0 8px var(--ai-blue);animation:pulse 2s infinite;}
+@keyframes pulse{0%{transform:scale(0.95);opacity:0.8;}50%{transform:scale(1.2);opacity:1;box-shadow:0 0 12px var(--ai-blue);}100%{transform:scale(0.95);opacity:0.8;}}
+header h1{font-size:2.5rem;background:linear-gradient(135deg,#ffffff,var(--ai-light),var(--ai-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;letter-spacing:-0.5px;}
+header p{color:var(--text-dim);font-size:0.95rem;margin-top:0.25rem;}
+.config-control{width:100%;max-width:1100px;background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(16px);border-radius:14px;padding:1.25rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:0.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.config-control label{font-size:0.85rem;color:var(--ai-light);font-weight:600;}
+.config-control input{width:100%;background:rgba(0,0,0,0.5);border:1px solid rgba(30,144,255,0.3);border-radius:8px;padding:0.75rem 1rem;color:#fff;font-size:0.95rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.config-control input:focus{border-color:var(--ai-blue);box-shadow:0 0 10px var(--ai-glow);}
+.status-block{width:100%;max-width:1100px;background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(16px);border-radius:14px;padding:1.25rem;margin-bottom:2rem;}
+.status-line{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:0.5rem;}
+.status-text.ok{color:var(--ok-green);}
+.status-text.fail{color:var(--fail-red);}
+.status-text.wait{color:#ffa500;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;width:100%;max-width:1100px;}
+.card{background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(16px);border-radius:16px;padding:1.5rem;box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);}
+.card:hover{transform:translateY(-4px);border-color:var(--ai-blue);box-shadow:0 12px 40px rgba(30,144,255,0.2);}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.badge{background:rgba(30,144,255,0.12);color:var(--ai-light);padding:0.25rem 0.65rem;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;border:1px solid rgba(30,144,255,0.2);}
+.badge.xhttp{background:rgba(255,105,180,0.12);border-color:rgba(255,105,180,0.25);color:#ffb6c1;}
+.card h2{font-size:1.15rem;color:#fff;font-weight:700;}
+.code-box{background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:0.85rem;font-family:monospace;font-size:0.78rem;color:var(--ai-light);word-break:break-all;margin-bottom:1rem;max-height:90px;overflow-y:auto;line-height:1.4;}
+.code-box.invalid{border:1px solid var(--fail-red);}
+.btn-group{display:flex;gap:0.5rem;}
+.btn{flex:1;padding:0.65rem;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:0.85rem;}
+.btn-copy{background:linear-gradient(135deg,#1e90ff,#00bfff);color:#fff;box-shadow:0 4px 15px rgba(30,144,255,0.3);}
+.btn-export{background:linear-gradient(135deg,#2ed573,#1dd1a1);color:#fff;box-shadow:0 4px 15px rgba(46,213,115,0.3);}
+.btn-ping{background:linear-gradient(135deg,#ffa502,#ff6348);color:#fff;box-shadow:0 4px 15px rgba(255,165,2,0.3);}
+.btn:hover{opacity:0.9;}
+footer{margin-top:auto;padding-top:3rem;color:var(--text-dim);font-size:0.85rem;text-align:center;}
+#toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#1e90ff,#ff69b4);color:#fff;padding:12px 24px;border-radius:30px;font-weight:700;font-size:0.95rem;box-shadow:0 10px 30px rgba(0,0,0,0.6);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1),opacity 0.3s ease;opacity:0;z-index:1000;text-align:center;border:1px solid rgba(255,255,255,0.3);}
+#toast-notification.show{transform:translateX(-50%) translateY(0);opacity:1;}
+</style>
 </head>
 <body>
-
-  <header>
-    <div class="ai-badge">
-      <span></span> Con Fig Neural Core Active
-    </div>
-    <h1>Con Fig Panel</h1>
-    <p>Dynamic Secure Tunnel Endpoints (WebSocket‑Only)</p>
-  </header>
-
-  <div class="config-control">
-    <label for="dynamicHost">Dynamic Host / Server Domain (Automatic):</label>
-    <input type="text" id="dynamicHost" value="" oninput="updateConfigs()" />
-  </div>
-
-  <main class="grid">
-    <!-- TROJAN WS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>Trojan</h2>
-        <span class="badge">WebSocket</span>
-      </div>
-      <div class="code-box" id="box-trojan-ws"></div>
-      <div class="btn-group">
-        <button class="btn btn-copy" onclick="copyConfig('box-trojan-ws')">Copy Config</button>
-      </div>
-    </div>
-
-    <!-- VLESS WS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>VLESS</h2>
-        <span class="badge">WebSocket</span>
-      </div>
-      <div class="code-box" id="box-vless-ws"></div>
-      <div class="btn-group">
-        <button class="btn btn-copy" onclick="copyConfig('box-vless-ws')">Copy Config</button>
-      </div>
-    </div>
-
-    <!-- VMESS WS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>VMess</h2>
-        <span class="badge">WebSocket</span>
-      </div>
-      <div class="code-box" id="box-vmess-ws"></div>
-      <div class="btn-group">
-        <button class="btn btn-copy" onclick="copyConfig('box-vmess-ws')">Copy Config</button>
-      </div>
-    </div>
-
-    <!-- SHADOWSOCKS WS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>Shadowsocks</h2>
-        <span class="badge">WebSocket</span>
-      </div>
-      <div class="code-box" id="box-ss-ws"></div>
-      <div class="btn-group">
-        <button class="btn btn-copy" onclick="copyConfig('box-ss-ws')">Copy Config</button>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    &copy; Con Fig System &bull; All Rights Reserved
-  </footer>
-
-  <!-- Custom Toast Notification Element -->
-  <div id="toast-notification">✅CONGRATS IDOL✅<br>🫰Na Copy Na Ang Config👌</div>
-
-  <script>
-    const templates = {
-      trojanWs: "trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
-      vlessWs: "vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS",
-      vmessWs: () => {
-        const h = document.getElementById('dynamicHost').value;
-        const obj = {"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
-        return "vmess://" + btoa(JSON.stringify(obj));
-      },
-      // Binagong Shadowsocks URL structure gamit ang iyong bagong payload format
-      ssWs: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-SHADOWSOCKS-WS"
-    };
-
-    function updateConfigs() {
-      const host = document.getElementById('dynamicHost').value;
-      document.getElementById('box-trojan-ws').innerText = templates.trojanWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-vless-ws').innerText = templates.vlessWs.replace(/HOST_PLACEHOLDER/g, host);
-      document.getElementById('box-vmess-ws').innerText = templates.vmessWs();
-      document.getElementById('box-ss-ws').innerText = templates.ssWs.replace(/HOST_PLACEHOLDER/g, host);
-    }
-
-    function copyConfig(elementId) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        showToast();
-      });
-    }
-
-    function showToast() {
-      const toast = document.getElementById('toast-notification');
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
-    }
-
-    window.onload = function() {
-      const currentHost = window.location.host;
-      if (currentHost) {
-        document.getElementById('dynamicHost').value = currentHost;
-      }
-      updateConfigs();
-    };
-  </script>
+<header>
+<div class="ai-badge"><span></span> Con Fig Neural Core Active</div>
+<h1>Con Fig Panel</h1>
+<p>Dynamic Secure Tunnel Endpoints (WebSocket + XHTTP)</p>
+</header>
+<div class="config-control">
+<label for="dynamicHost">Dynamic Host / Server Domain (Automatic):</label>
+<input type="text" id="dynamicHost" value="" oninput="updateConfigs()">
+<div class="btn-group" style="margin-top:0.75rem;">
+<button class="btn btn-export" onclick="exportAllConfigs()">📦 Export‑All Configs</button>
+<button class="btn btn-ping" onclick="checkServerPing()">🔍 Check Server Reachability</button>
+</div>
+</div>
+<div class="status-block">
+<div><strong>Server Reachability Hint (nginx only — not tunnel health)</strong></div>
+<div class="status-line">
+<span>Status:</span>
+<span id="ping-status" class="status-text">Not checked yet</span>
+</div>
+</div>
+<main class="grid">
+<div class="card">
+<div class="card-header"><h2>Trojan‑WS</h2><span class="badge">WebSocket</span></div>
+<div class="code-box" id="box-trojan-ws"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-trojan-ws')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>VLESS‑WS</h2><span class="badge">WebSocket</span></div>
+<div class="code-box" id="box-vless-ws"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vless-ws')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>VMess‑WS</h2><span class="badge">WebSocket</span></div>
+<div class="code-box" id="box-vmess-ws"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vmess-ws')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>Shadowsocks‑WS</h2><span class="badge">WebSocket</span></div>
+<div class="code-box" id="box-ss-ws"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-ss-ws')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>Trojan‑XHTTP</h2><span class="badge xhttp">X‑HTTP</span></div>
+<div class="code-box" id="box-trojan-xhttp"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-trojan-xhttp')">Copy Config</button></div>
+</div>
+<div class="card">
+<div class="card-header"><h2>VLESS‑XHTTP</h2><span class="badge xhttp">X‑HTTP</span></div>
+<div class="code-box" id="box-vless-xhttp"></div>
+<div class="btn-group"><button class="btn btn-copy" onclick="copyConfig('box-vless-xhttp')">Copy Config</button></div>
+</div>
+</main>
+<footer>&copy; Con Fig System &bull; All Rights Reserved</footer>
+<div id="toast-notification">✅CONGRATS IDOL✅<br>🫰Na Copy Na Ang Config👌</div>
+<script>
+const templates={
+trojanWs:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Ftrojan-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-WS",
+vlessWs:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fvless-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-WS",
+vmessWs:function(){
+  const h=document.getElementById('dynamicHost').value;
+  const obj={"add":"apps.google.com","port":"443","id":"a1b2c3d4-5678-40ef-98ab-cdef01234567","aid":"0","scy":"chacha20-poly1305","net":"ws","type":"none","host":h,"path":"/vmess-ws","tls":"tls","sni":"firebaseremoteconfigrealtime.googleapis.com","ps":"GCP-VMESS-WS","v":"2"};
+  return "vmess://"+btoa(JSON.stringify(obj));
+},
+ssWs:"ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpnY3AteHJheQ==@apps.google.com:443?type=ws&host=HOST_PLACEHOLDER&headerType=none&path=%2Fss-ws&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-SHADOWSOCKS-WS",
+trojanXhttp:"trojan://gcp-xray@firebaseremoteconfigrealtime.googleapis.com:443?type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Ftrojan-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-Trojan-XHTTP",
+vlessXhttp:"vless://a1b2c3d4-5678-40ef-98ab-cdef01234567@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=xhttp&host=HOST_PLACEHOLDER&headerType=auto&path=%2Fvless-xhttp&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#GCP-VLESS-XHTTP"
+};
+const boxIds=["box-trojan-ws","box-vless-ws","box-vmess-ws","box-ss-ws","box-trojan-xhttp","box-vless-xhttp"];
+function validateUri(uri){
+  if(!uri||uri.length<10)return false;
+  const allowed=["trojan://","vless://","vmess://","ss://"];
+  return allowed.some(p=>uri.startsWith(p));
+}
+function updateConfigs(){
+  const host=document.getElementById('dynamicHost').value;
+  const data={
+    "box-trojan-ws":templates.trojanWs.replace(/HOST_PLACEHOLDER/g,host),
+    "box-vless-ws":templates.vlessWs.replace(/HOST_PLACEHOLDER/g,host),
+    "box-vmess-ws":templates.vmessWs(),
+    "box-ss-ws":templates.ssWs.replace(/HOST_PLACEHOLDER/g,host),
+    "box-trojan-xhttp":templates.trojanXhttp.replace(/HOST_PLACEHOLDER/g,host),
+    "box-vless-xhttp":templates.vlessXhttp.replace(/HOST_PLACEHOLDER/g,host)
+  };
+  for(const id of boxIds){
+    const el=document.getElementById(id);
+    el.innerText=data[id];
+    if(validateUri(data[id])) el.classList.remove("invalid");
+    else el.classList.add("invalid");
+  }
+}
+function copyConfig(elId){
+  const txt=document.getElementById(elId).innerText;
+  if(!validateUri(txt)){alert("⚠️ URI looks invalid — check your host value");return;}
+  navigator.clipboard.writeText(txt).then(()=>showToast());
+}
+function showToast(){
+  const t=document.getElementById('toast-notification');
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+}
+function exportAllConfigs(){
+  let out="===== GCP Tunnel Configs =====\n";
+  for(const id of boxIds){out+="\n"+document.getElementById(id).innerText+"\n";}
+  const blob=new Blob([out],{type:"text/plain"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="gcp‑tunnel‑all‑configs.txt";
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);showToast();
+}
+async function checkServerPing(){
+  const st=document.getElementById("ping-status");
+  st.textContent="Checking…";st.className="status-text wait";
+  try{
+    await fetch("/",{method:"HEAD",mode:"no-cors"});
+    st.textContent="Reachable (nginx hint only)";st.className="status-text ok";
+  }catch(err){
+    st.textContent="Not reachable / CORS blocked";st.className="status-text fail";
+  }
+}
+window.onload=function(){
+  const h=window.location.host;
+  if(h){document.getElementById('dynamicHost').value=h;}
+  updateConfigs();
+};
+</script>
 </body>
 </html>
