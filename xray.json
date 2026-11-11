@@ -61,7 +61,10 @@
       },
       "streamSettings": {
         "network": "xhttp",
-        "xhttpSettings": {"path": "/trojan-xhttp"},
+        "xhttpSettings": {
+          "path": "/trojan-xhttp",
+          "mode": "auto"
+        },
         "security": "none"
       },
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
@@ -75,7 +78,10 @@
       },
       "streamSettings": {
         "network": "xhttp",
-        "xhttpSettings": {"path": "/vless-xhttp"},
+        "xhttpSettings": {
+          "path": "/vless-xhttp",
+          "mode": "auto"
+        },
         "security": "none"
       },
       "sniffing": {"enabled": true, "destOverride": ["http","tls"]}
