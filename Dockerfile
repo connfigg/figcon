@@ -1,7 +1,7 @@
 FROM alpine:3.19
 
-# Install Nginx, curl, bash, and tzdata
-RUN apk add --no-cache nginx curl bash tzdata
+# Install Nginx, curl, bash, tzdata, and supervisord
+RUN apk add --no-cache nginx curl bash tzdata supervisor
 
 # Download and install official Xray binary
 RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/') && \
@@ -15,16 +15,15 @@ RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases
     rm -rf /tmp/xray.zip /tmp/xray_extract
 
 # Create required directories
-RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray
+RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray /var/log/supervisor
 
-# Copy configuration files (gagamit na sa xray.json)
+# Copy configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY xray.json /etc/xray/xray.json
+COPY xray.json /etc/xray/config.json
 COPY index.html /usr/share/nginx/html/index.html
-COPY entrypoint.sh /entrypoint.sh
-
-RUN chmod +x /entrypoint.sh
+COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 8080
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Use supervisord as entrypoint — replaces entrypoint.sh
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
