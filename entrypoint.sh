@@ -3,7 +3,7 @@
 # Kuhaon ang PORT gikan sa Cloud Run environment (default 8080)
 LISTEN_PORT="${PORT:-8080}"
 
-# I-update ang listening port sa nginx.conf base sa Cloud Run
+# I-update ang listening port sa nginx.conf base sa Cloud Run PORT
 sed -i "s/listen 8080;/listen ${LISTEN_PORT};/g" /etc/nginx/nginx.conf
 
 # Padaganon ang Xray sa background
