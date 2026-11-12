@@ -1,12 +1,13 @@
 #!/bin/sh
 
-# Ensure log directories exist
-mkdir -p /var/log/xray /var/log/nginx /run/nginx
+# Kuhaon ang PORT gikan sa Cloud Run environment (default 8080)
+LISTEN_PORT="${PORT:-8080}"
 
-# Start Xray in the background
-echo "Starting Xray-core..."
-/usr/local/bin/xray/xray run -config /etc/xray/config.json &
+# I-update ang listening port sa nginx.conf base sa Cloud Run
+sed -i "s/listen 8080;/listen ${LISTEN_PORT};/g" /etc/nginx/nginx.conf
 
-# Start Nginx in the foreground (keeps container alive and listens to PORT 8080)
-echo "Starting Nginx..."
-exec nginx -g "daemon off;"
+# Padaganon ang Xray sa background
+/usr/local/bin/xray run -config /etc/xray/x-ray.json &
+
+# Padaganon ang Nginx sa foreground aron magpabiling buhi ang container
+exec nginx -g 'daemon off;'
