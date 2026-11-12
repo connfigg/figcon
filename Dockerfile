@@ -14,8 +14,8 @@ RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases
     chmod +x /usr/local/bin/xray/xray && \
     rm -rf /tmp/xray.zip /tmp/xray_extract
 
-# Create required directories
-RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray /var/log/supervisor
+# Create required directories (Fixed supervisord log dir and added nginx run dir)
+RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray /var/log/supervisord /var/log/nginx /run/nginx
 
 # Copy configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -25,5 +25,5 @@ COPY supervisord.conf /etc/supervisor.conf
 
 EXPOSE 8080
 
-# ✅ Fixed: Alpine uses /usr/sbin/supervisord NOT /usr/bin/supervisord
+# Alpine uses /usr/sbin/supervisord NOT /usr/bin/supervisord
 ENTRYPOINT ["/usr/sbin/supervisord", "-c", "/etc/supervisor.conf"]
