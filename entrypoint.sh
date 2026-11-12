@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Testing Xray configuration..."
+/usr/local/bin/xray -test -config /etc/xray/x-ray.json
+
 # Kuhaon ang PORT gikan sa Cloud Run environment (default 8080)
 LISTEN_PORT="${PORT:-8080}"
 
