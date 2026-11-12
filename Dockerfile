@@ -21,9 +21,9 @@ RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray /var/log/supervisor
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY xray.json /etc/xray/config.json
 COPY index.html /usr/share/nginx/html/index.html
-COPY supervisord.conf /etc/supervisord.conf
+COPY supervisord.conf /etc/supervisor.conf
 
 EXPOSE 8080
 
-# Use supervisord as entrypoint — replaces entrypoint.sh
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# ✅ Fixed: Alpine uses /usr/sbin/supervisord NOT /usr/bin/supervisord
+ENTRYPOINT ["/usr/sbin/supervisord", "-c", "/etc/supervisor.conf"]
