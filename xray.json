@@ -1,143 +1,109 @@
 {
   "log": {
-    "loglevel": "warning",
-    "access": "",
-    "error": ""
-  },
-  "dns": {
-    "servers": [
-      "1.1.1.1",
-      "8.8.8.8",
-      "2606:4700:4700::1111",
-      "2001:4860:4860::8888",
-      "localhost"
-    ]
+    "loglevel": "warning"
   },
   "inbounds": [
     {
       "port": 10001,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {
         "clients": [
           {
-            "password": "gcp-xray",
-            "email": ""
+            "password": "gcp-xray"
           }
-        ],
-        "decryption": "none"
+        ]
       },
       "streamSettings": {
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/trojan-ws",
-          "headers": {
-            "Host": ""
-          }
+          "path": "/trojan-ws"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 11001,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {
         "clients": [
           {
-            "password": "gcp-xray",
-            "email": ""
+            "password": "gcp-xray"
           }
-        ],
-        "decryption": "none"
+        ]
       },
       "streamSettings": {
         "network": "httpupgrade",
         "security": "none",
         "httpupgradeSettings": {
-          "path": "/trojan-hu",
-          "host": ""
+          "path": "/trojan-hu"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 10002,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
-            "flow": "",
-            "email": ""
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"
           }
-        ],
-        "decryption": "none"
+        ]
       },
       "streamSettings": {
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/vless-ws",
-          "headers": {
-            "Host": ""
-          }
+          "path": "/vless-ws"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 11002,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
-            "flow": "",
-            "email": ""
+            "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567"
           }
-        ],
-        "decryption": "none"
+        ]
       },
       "streamSettings": {
         "network": "httpupgrade",
         "security": "none",
         "httpupgradeSettings": {
-          "path": "/vless-hu",
-          "host": ""
+          "path": "/vless-hu"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 10003,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "vmess",
       "settings": {
         "clients": [
           {
             "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
-            "alterId": 0,
-            "security": "auto"
+            "alterId": 0
           }
         ]
       },
@@ -145,28 +111,23 @@
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/vmess-ws",
-          "headers": {
-            "Host": ""
-          }
+          "path": "/vmess-ws"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 11003,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "vmess",
       "settings": {
         "clients": [
           {
             "id": "a1b2c3d4-5678-40ef-98ab-cdef01234567",
-            "alterId": 0,
-            "security": "auto"
+            "alterId": 0
           }
         ]
       },
@@ -174,83 +135,59 @@
         "network": "httpupgrade",
         "security": "none",
         "httpupgradeSettings": {
-          "path": "/vmess-hu",
-          "host": ""
+          "path": "/vmess-hu"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 10004,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
-        "password": "gcp-xray",
-        "network": "tcp,udp"
+        "password": "gcp-xray"
       },
       "streamSettings": {
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/ss-ws",
-          "headers": {
-            "Host": ""
-          }
+          "path": "/ss-ws"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     },
     {
       "port": 11004,
-      "listen": "::",
+      "listen": "0.0.0.0",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
-        "password": "gcp-xray",
-        "network": "tcp,udp"
+        "password": "gcp-xray"
       },
       "streamSettings": {
         "network": "httpupgrade",
         "security": "none",
         "httpupgradeSettings": {
-          "path": "/ss-hu",
-          "host": ""
+          "path": "/ss-hu"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
-        "routeOnly": true
+        "destOverride": ["http", "tls"]
       }
     }
   ],
   "outbounds": [
     {
       "protocol": "freedom",
-      "settings": {
-        "domainStrategy": "UseIP"
-      },
-      "tag": "direct"
+      "settings": {}
     }
-  ],
-  "routing": {
-    "domainStrategy": "IPIfNonMatch",
-    "domainMatcher": "hybrid",
-    "rules": [
-      {
-        "type": "field",
-        "ip": ["geoip:private"],
-        "outboundTag": "direct"
-      }
-    ]
-  }
+  ]
 }
