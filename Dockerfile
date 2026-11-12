@@ -1,7 +1,7 @@
 FROM alpine:latest
 
-# Install Nginx, curl, unzip, ug tzdata
-RUN apk add --no-cache nginx curl unzip tzdata
+# Install Nginx, curl, unzip, tzdata, ug gcompat para mo-run ang Xray binary sa Alpine
+RUN apk add --no-cache nginx curl unzip tzdata gcompat
 
 # Download ug Install sa opisyal nga Xray-core binary
 RUN ARCH=$(uname -m) && \
