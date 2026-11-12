@@ -1,29 +1,30 @@
-FROM alpine:3.19
+FROM alpine:latest
 
-# Install dependencies
-RUN apk add --no-cache nginx curl bash tzdata
+# Install Nginx, curl, unzip, ug tzdata
+RUN apk add --no-cache nginx curl unzip tzdata
 
-# Create required directories
-RUN mkdir -p /var/log/xray /var/log/nginx /etc/xray /usr/share/nginx/html /run/nginx
+# Download ug Install sa opisyal nga Xray-core binary
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then XRAY_ARCH="64"; \
+    elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; \
+    else XRAY_ARCH="64"; fi && \
+    curl -L -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-${XRAY_ARCH}.zip && \
+    mkdir -p /usr/local/bin /usr/local/share/xray /etc/xray && \
+    unzip /tmp/xray.zip -d /tmp/xray && \
+    mv /tmp/xray/xray /usr/local/bin/xray && \
+    chmod +x /usr/local/bin/xray && \
+    rm -rf /tmp/xray.zip /tmp/xray
 
-# Download & install Xray
-RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/') && \
-    curl -L -o /tmp/xray.zip "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" && \
-    mkdir -p /usr/local/bin/xray /usr/local/share/xray && \
-    unzip /tmp/xray.zip -d /tmp/xray_extract && \
-    mv /tmp/xray_extract/xray /usr/local/bin/xray/ && \
-    mv /tmp/xray_extract/geoip.dat /usr/local/share/xray/ && \
-    mv /tmp/xray_extract/geosite.dat /usr/local/share/xray/ && \
-    chmod +x /usr/local/bin/xray/xray && \
-    rm -rf /tmp/xray.zip /tmp/xray_extract
-
-# Copy configuration files
+# Kopyahon ang imong mga configuration files gikan sa root folder sa GitHub repo
+COPY x-ray.json /etc/xray/x-ray.json
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY xray.json /etc/xray/config.json
-COPY index.html /usr/share/nginx/html/index.html
 COPY entrypoint.sh /entrypoint.sh
 
-# Make entrypoint executable
+# Maghimo og Decoy Landing Page alang sa root path (/)
+RUN mkdir -p /usr/share/nginx/html && \
+    echo '<!DOCTYPE html><html><head><title>Cloud Gateway</title><style>body{font-family:sans-serif;text-align:center;padding:50px;background:#f4f4f9;color:#333;}h1{font-size:36px;color:#0056b3;}p{font-size:18px;}</style></head><body><h1>System Operational</h1><p>Welcome to our cloud service gateway. All nodes are active.</p></body></html>' > /usr/share/nginx/html/index.html
+
+# Hatagan og executable permission ang entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
