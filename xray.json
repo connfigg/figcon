@@ -5,7 +5,7 @@
   "inbounds": [
     {
       "port": 10001,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "trojan",
       "settings": {
         "clients": [
@@ -28,7 +28,7 @@
     },
     {
       "port": 11001,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "trojan",
       "settings": {
         "clients": [
@@ -51,7 +51,7 @@
     },
     {
       "port": 10002,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -74,7 +74,7 @@
     },
     {
       "port": 11002,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -97,7 +97,7 @@
     },
     {
       "port": 10003,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -121,7 +121,7 @@
     },
     {
       "port": 11003,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -145,7 +145,7 @@
     },
     {
       "port": 10004,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
@@ -165,7 +165,7 @@
     },
     {
       "port": 11004,
-      "listen": "0.0.0.0",
+      "listen": "::",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
