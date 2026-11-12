@@ -9,20 +9,17 @@ RUN ARCH=$(uname -m) && \
     elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; \
     else XRAY_ARCH="64"; fi && \
     curl -L -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-${XRAY_ARCH}.zip && \
-    mkdir -p /usr/local/bin /usr/local/share/xray /etc/xray && \
+    mkdir -p /usr/local/bin /usr/local/share/xray /etc/xray /usr/share/nginx/html && \
     unzip /tmp/xray.zip -d /tmp/xray && \
     mv /tmp/xray/xray /usr/local/bin/xray && \
     chmod +x /usr/local/bin/xray && \
     rm -rf /tmp/xray.zip /tmp/xray
 
-# Kopyahon ang imong mga configuration files gikan sa root folder sa GitHub repo
-COPY x-ray.json /etc/xray/x-ray.json
+# Kopyahon ang saktong mga files gikan sa imong repo
+COPY xray.json /etc/xray/x-ray.json
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /entrypoint.sh
-
-# Maghimo og Decoy Landing Page alang sa root path (/)
-RUN mkdir -p /usr/share/nginx/html && \
-    echo '<!DOCTYPE html><html><head><title>Cloud Gateway</title><style>body{font-family:sans-serif;text-align:center;padding:50px;background:#f4f4f9;color:#333;}h1{font-size:36px;color:#0056b3;}p{font-size:18px;}</style></head><body><h1>System Operational</h1><p>Welcome to our cloud service gateway. All nodes are active.</p></body></html>' > /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
 
 # Hatagan og executable permission ang entrypoint.sh
 RUN chmod +x /entrypoint.sh
