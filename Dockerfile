@@ -3,6 +3,10 @@ FROM alpine:3.19
 # Install Nginx, curl, bash, tzdata, and supervisord
 RUN apk add --no-cache nginx curl bash tzdata supervisor
 
+# Create ALL required directories FIRST
+RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray \
+    /var/log/supervisord /var/log/nginx /run/nginx
+
 # Download and install official Xray binary
 RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/') && \
     curl -L -o /tmp/xray.zip "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" && \
@@ -14,16 +18,15 @@ RUN XRAY_VERSION=$(curl -s "https://api.github.com/repos/XTLS/Xray-core/releases
     chmod +x /usr/local/bin/xray/xray && \
     rm -rf /tmp/xray.zip /tmp/xray_extract
 
-# Create required directories (Fixed supervisord log dir and added nginx run dir)
-RUN mkdir -p /var/log/xray /usr/share/nginx/html /etc/xray /var/log/supervisord /var/log/nginx /run/nginx
-
 # Copy configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY xray.json /etc/xray/config.json
 COPY index.html /usr/share/nginx/html/index.html
-COPY supervisord.conf /etc/supervisor.conf
+COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 8080
 
-# Alpine uses /usr/sbin/supervisord NOT /usr/bin/supervisord
-ENTRYPOINT ["/usr/sbin/supervisord", "-c", "/etc/supervisor.conf"]
+# Make sure directories exist with correct permissions
+RUN chmod 755 /var/log/supervisord /var/log/xray /var/log/nginx
+
+ENTRYPOINT ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
