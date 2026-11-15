@@ -1,29 +1,20 @@
-FROM alpine:latest
+FROM debian:bookworm-slim
 
-# Install Nginx, curl, unzip, tzdata, ug gcompat para mo-run ang Xray binary sa Alpine
-RUN apk add --no-cache nginx curl unzip tzdata gcompat
+RUN apt update && apt install -y \
+    nginx curl ca-certificates tzdata \
+    && rm -rf /var/lib/apt/lists/*
 
-# Download ug Install sa opisyal nga Xray-core binary
-RUN ARCH=$(uname -m) && \
-    if [ "$ARCH" = "x86_64" ]; then XRAY_ARCH="64"; \
-    elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; \
-    else XRAY_ARCH="64"; fi && \
-    curl -L -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-${XRAY_ARCH}.zip && \
-    mkdir -p /usr/local/bin /usr/local/share/xray /etc/xray /usr/share/nginx/html && \
-    unzip /tmp/xray.zip -d /tmp/xray && \
-    mv /tmp/xray/xray /usr/local/bin/xray && \
-    chmod +x /usr/local/bin/xray && \
-    rm -rf /tmp/xray.zip /tmp/xray
+RUN bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
-# Kopyahon ang saktong mga files gikan sa imong repo
-COPY xray.json /etc/xray/x-ray.json
+RUN mkdir -p /usr/local/etc/xray /run/nginx /xray-configs
+
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY entrypoint.sh /entrypoint.sh
-COPY index.html /usr/share/nginx/html/index.html
+COPY xray-vless.json /xray-configs/xray-vless.json
+COPY xray-vmess.json /xray-configs/xray-vmess.json
+COPY xray-trojan.json /xray-configs/xray-trojan.json
+COPY start.sh /start.sh
 
-# Hatagan og executable permission ang entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /start.sh
 
 EXPOSE 8080
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/start.sh"]
